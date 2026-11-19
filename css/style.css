@@ -1,0 +1,526 @@
+/* =====================================================
+   CSS Custom Properties — Light theme (default)
+   ===================================================== */
+:root {
+  --bg:           #f4f5f7;
+  --card:         #ffffff;
+  --text:         #1a1a2e;
+  --muted:        #6b7280;
+  --border:       #d1d5db;
+  --accent:       #4f46e5;
+  --accent-text:  #ffffff;
+  --danger:       #dc2626;
+  --shadow:       0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark theme override */
+[data-theme="dark"] {
+  --bg:           #0f0f1a;
+  --card:         #1e1e2e;
+  --text:         #e2e8f0;
+  --muted:        #94a3b8;
+  --border:       #334155;
+  --accent:       #818cf8;
+  --accent-text:  #0f0f1a;
+  --danger:       #f87171;
+  --shadow:       0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* =====================================================
+   Base reset
+   ===================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px; /* base; 1rem = 16px, body min set below */
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px; /* minimum body font size per Requirement 6.6 */
+  line-height: 1.6;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100vh;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+/* =====================================================
+   App wrapper — max width + centering
+   ===================================================== */
+.app {
+  max-width: 960px; /* ≤ 1200 px per Requirement 6.6 */
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2rem;
+}
+
+/* =====================================================
+   Header
+   ===================================================== */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  padding: 1.25rem 0 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.header-clock {
+  flex: 1 1 auto;
+}
+
+.header-greeting {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 1 auto;
+}
+
+.header-actions {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+/* =====================================================
+   Heading levels — h1 (clock) and h2 (widget titles)
+   ===================================================== */
+
+/* h1 — the main clock display */
+h1#clock {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* h2 — widget section titles */
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* =====================================================
+   Grid layout
+   ===================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+/* Wide card spans full row */
+.wide {
+  grid-column: 1 / -1;
+}
+
+/* =====================================================
+   Card
+   ===================================================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+/* =====================================================
+   Row utility
+   ===================================================== */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+.sort-row {
+  margin-top: 0.5rem;
+}
+
+/* =====================================================
+   Buttons
+   ===================================================== */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--accent-text);
+  background-color: var(--accent);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Secondary / ghost variant used for Cancel, Remove etc. */
+button.secondary {
+  color: var(--text);
+  background-color: transparent;
+  border-color: var(--border);
+}
+
+button.secondary:hover:not(:disabled) {
+  background-color: var(--border);
+  opacity: 1;
+}
+
+/* Danger variant — delete */
+button.danger {
+  color: var(--danger);
+  background-color: transparent;
+  border-color: transparent;
+  padding: 0.3rem 0.5rem;
+}
+
+button.danger:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--danger) 10%, transparent);
+  opacity: 1;
+}
+
+/* Icon-only button (edit, delete) */
+button.icon-btn {
+  padding: 0.25rem 0.4rem;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--muted);
+  border: none;
+}
+
+button.icon-btn:hover {
+  color: var(--text);
+  background: var(--border);
+  opacity: 1;
+}
+
+/* =====================================================
+   Inputs & selects
+   ===================================================== */
+input[type="text"],
+input[type="number"],
+select {
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.65rem;
+  line-height: 1.4;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+input[type="text"] {
+  flex: 1 1 160px;
+  min-width: 0;
+}
+
+input[type="number"] {
+  width: 5rem;
+}
+
+select {
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  background-size: 10px;
+}
+
+/* =====================================================
+   Error messages
+   ===================================================== */
+.error-msg {
+  font-size: 0.8rem;
+  color: var(--danger);
+  min-height: 1.2em;
+  margin-top: 0.1rem;
+}
+
+/* =====================================================
+   Muted / helper text
+   ===================================================== */
+.muted-text {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* =====================================================
+   Timer component
+   ===================================================== */
+.timer-display {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  text-align: center;
+  margin: 0.75rem 0 1rem;
+  line-height: 1;
+}
+
+/* =====================================================
+   To-Do List component
+   ===================================================== */
+.todo-list {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  transition: background-color 0.15s ease;
+}
+
+.todo-item:hover {
+  background-color: color-mix(in srgb, var(--border) 30%, var(--bg));
+}
+
+.todo-item input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.todo-item .task-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.todo-item.done .task-text {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.todo-item .item-actions {
+  display: flex;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+/* Inline edit input inside todo item */
+.todo-item .edit-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.45rem;
+}
+
+/* =====================================================
+   Quick Links component
+   ===================================================== */
+.links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 0.3rem 0.5rem 0.3rem 0.85rem;
+  background: var(--bg);
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+
+.link-chip:hover {
+  background-color: color-mix(in srgb, var(--accent) 8%, var(--bg));
+}
+
+.link-chip a {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.link-chip a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.link-chip .remove-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.link-chip .remove-link:hover {
+  color: var(--danger);
+  background-color: color-mix(in srgb, var(--danger) 12%, transparent);
+  opacity: 1;
+}
+
+.links-empty {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* =====================================================
+   Header typography helpers
+   ===================================================== */
+#date {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+#greeting {
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* =====================================================
+   Responsive — ≤ 720 px: single column
+   ===================================================== */
+@media (max-width: 720px) {
+  .app {
+    padding: 0.75rem 1rem 1.5rem;
+  }
+
+  h1#clock {
+    font-size: 1.9rem;
+  }
+
+  .timer-display {
+    font-size: 2.75rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* wide already spans full; on single-column it's fine as-is */
+  .wide {
+    grid-column: 1;
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .header-actions {
+    margin-left: 0;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sort-row,
+  .row.sort-row {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Keep timer buttons in a row */
+  #timer-start,
+  #timer-stop,
+  #timer-reset {
+    width: auto;
+    flex: 1 1 auto;
+  }
+}
